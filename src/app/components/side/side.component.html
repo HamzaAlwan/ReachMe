@@ -1,0 +1,34 @@
+<mat-card class="side-card mat-elevation-z4">
+  <mat-list dense class="container">
+    <div class="row status">
+      <span class="col-4"
+        ><p class="title">Posts</p>
+        {{ currentUser?.posts ? currentUser.posts.length : 0 }}</span
+      >
+      <span class="col-4"
+        ><p class="title">
+          <a [routerLink]="['/people/following']">Following</a>
+        </p>
+        {{ currentUser?.following ? currentUser.following.length : 0 }}</span
+      >
+      <span class="col-4"
+        ><p class="title">
+          <a [routerLink]="['/people/followers']">Followers</a>
+        </p>
+        {{ currentUser?.followers ? currentUser.followers.length : 0 }}</span
+      >
+    </div>
+    <mat-list-item
+      class="list-item"
+      *ngFor="let component of sideComponents"
+      [routerLinkActive]="'active'"
+      [routerLinkActiveOptions]="{ exact: true }"
+      [routerLink]="[component.link]"
+    >
+      <span class="col-10"> {{ component.name }} </span>
+      <a class="col-2"
+        ><mat-icon>{{ component.icon }}</mat-icon></a
+      >
+    </mat-list-item>
+  </mat-list>
+</mat-card>

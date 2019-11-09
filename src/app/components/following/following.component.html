@@ -1,0 +1,55 @@
+<mat-form-field class="col-12 searchInput" appearance="outline">
+  <mat-icon matPrefix>search</mat-icon>
+  <input
+    matInput
+    type="search"
+    name="search"
+    [(ngModel)]="search"
+    (ngModelChange)="filterUsers()"
+  />
+  <button
+    mat-button
+    *ngIf="search"
+    matSuffix
+    mat-icon-button
+    aria-label="Clear"
+    (click)="search = ''"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
+<div class="col-12" *ngIf="following?.length > 0">
+  <div
+    *ngFor="let user of filteredUsers"
+    class="usercard col-xl-4 col-lg-6 col-md-12 col-sm-12"
+  >
+    <mat-card>
+      <img
+        mat-card-image
+        src="https://res.cloudinary.com/my-chat-app/image/upload/v{{
+          user.followed?.image?.version
+        }}/{{ user.followed?.image?.id }}"
+        alt="Photo of {{ user.followed.username }}"
+      />
+      <mat-card-header>
+        <mat-card-title>{{ user.followed.username }}</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-actions>
+        <button
+          mat-raised-button
+          class="followed"
+          (click)="unFollow(user.followed)"
+        >
+          <span><mat-icon> record_voice_over </mat-icon> Unfollow</span>
+        </button>
+        <button
+          mat-raised-button
+          [routerLink]="['/chat', user.followed.username]"
+        >
+          <mat-icon>message</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

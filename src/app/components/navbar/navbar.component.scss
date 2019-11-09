@@ -1,0 +1,96 @@
+.mat-sidenav-container {
+  background: transparent;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.fill-space {
+  flex: 1 1 auto;
+}
+
+.logo {
+  width: 32px;
+}
+
+.mat-toolbar-row,
+.mat-toolbar-single-row {
+  height: 50px;
+}
+
+.username {
+  font-size: 15px;
+  padding: 0 12px 0 8px;
+}
+
+.userImg {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+}
+
+@media (min-width: 480px) {
+  .userImg {
+    pointer-events: none;
+  }
+  .navbtns-icons {
+    display: none;
+  }
+}
+@media (max-width: 480px) {
+  .navbtns {
+    display: none;
+  }
+  img {
+    cursor: pointer;
+  }
+  .username {
+    font-size: 0;
+    padding: 0;
+  }
+}
+
+// Notifications
+.mat-menu-content {
+  padding: 0 !important;
+}
+
+.notifications .avatar {
+  background-size: cover;
+}
+
+.notifications .noImage {
+  background-image: url("../../../assets/user.svg");
+}
+
+.notifications .noti-card {
+  padding-bottom: 0 !important;
+}
+.notifications .noti-card:not(:last-child) {
+  margin-bottom: 5px !important;
+}
+
+.notifications .time {
+  font-size: 10px;
+  font-style: italic;
+  margin-bottom: 10px !important;
+}
+
+.notifications .noti-title {
+  font-size: 14px;
+}
+
+.notifications .noti-remove {
+  color: black;
+}
+
+.notifications .noti-remove:hovor {
+  color: red;
+}
+
+.markAllRead {
+  margin: 6px auto;
+  width: 90%;
+  display: block;
+}

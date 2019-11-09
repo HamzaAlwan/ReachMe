@@ -1,0 +1,76 @@
+<mat-form-field class="col-12 searchInput" appearance="outline">
+  <mat-icon matPrefix>search</mat-icon>
+  <input
+    matInput
+    type="search"
+    placeholder="Search followers"
+    name="search"
+    [(ngModel)]="search"
+    (ngModelChange)="filterUsers()"
+  />
+  <button
+    mat-button
+    *ngIf="search"
+    matSuffix
+    mat-icon-button
+    aria-label="Clear"
+    (click)="search = ''"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
+<div class="col-12" *ngIf="followers?.length > 0">
+  <div
+    *ngFor="let user of filteredUsers"
+    class="usercard col-xl-4 col-lg-6 col-md-12 col-sm-12"
+  >
+    <mat-card>
+      <img
+        mat-card-image
+        src="https://res.cloudinary.com/my-chat-app/image/upload/v{{
+          user.follower?.image?.version
+        }}/{{ user.follower?.image?.id }}"
+        alt="Photo of {{ user.follower.username }}"
+      />
+      <mat-card-header>
+        <mat-card-title>{{ user.follower.username }}</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-actions>
+        <!-- If the user is followed -->
+        <button
+          *ngIf="checkUserFollowing(user.follower.followers, currentUser?._id)"
+          mat-raised-button
+          class="followed"
+          (click)="unFollow(user.follower)"
+        >
+          <span><mat-icon> record_voice_over </mat-icon> Unfollow</span>
+        </button>
+
+        <!-- If the user is not followed -->
+        <button
+          *ngIf="!checkUserFollowing(user.follower.followers, currentUser?._id)"
+          mat-raised-button
+          (click)="onFollow(user.follower)"
+        >
+          <span>
+            <mat-icon>
+              voice_over_off
+            </mat-icon>
+            Follow
+          </span>
+        </button>
+
+        <button
+          mat-raised-button
+          [routerLink]="['/chat', user.follower.username]"
+        >
+          <mat-icon>message</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+<div class="col-12 text-center" *ngIf="followers?.length === 0">
+  <h1>You have no followers</h1>
+</div>

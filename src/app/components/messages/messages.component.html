@@ -1,0 +1,88 @@
+<div class="row">
+  <div class="col-12">
+    <div class="container clearfix">
+      <div class="chat">
+        <div class="chat-header clearfix">
+          <img
+            src="https://res.cloudinary.com/my-chat-app/image/upload/v{{
+              receiver?.image?.version
+            }}/{{ receiver?.image?.id }}"
+            alt="avatar"
+          />
+          <div class="chat-about">
+            <div class="chat-with">Chat with {{ receiver?.username }}</div>
+            <div [ngClass]="isOnline ? 'online' : 'offline'">
+              <mat-icon style="font-size: 20px !important">{{
+                isOnline ? "lens" : "panorama_fish_eye"
+              }}</mat-icon
+              >{{ isOnline ? "Online" : "Offline" }}
+            </div>
+          </div>
+        </div>
+        <!-- end chat-header -->
+
+        <div class="chat-history" id="chat-history" #chatDiv>
+          <div *ngFor="let msg of messages">
+            <!-- Sender -->
+            <div
+              class="clearfix"
+              *ngIf="currentUser?.username === msg.senderName"
+            >
+              <div class="message-data sender right">
+                <span class="message-data-time">{{
+                  msg.createdAt.slice(0, 7)
+                }}</span>
+                &nbsp; &nbsp; <span class="message-data-name">Me</span>
+              </div>
+              <div class="message other-message float-right">
+                {{ msg.body }}
+              </div>
+            </div>
+
+            <!-- Receiver -->
+            <div
+              *ngIf="
+                currentUser.username !== receiver.username &&
+                currentUser.username !== msg.senderName
+              "
+            >
+              <div class="message-data receiver left">
+                <span class="message-data-name"> {{ receiver.username }}</span>
+                <span class="message-data-time">{{
+                  msg.createdAt.slice(0, 7)
+                }}</span>
+              </div>
+              <div class="message my-message">
+                {{ msg.body }}
+              </div>
+            </div>
+          </div>
+          <span *ngIf="typing" class="typing"
+            >{{ receiver.username }} is typing...</span
+          >
+        </div>
+        <!-- end chat-history -->
+
+        <div class="chat-message clearfix">
+          <mat-form-field style="width: 100%" appearance="outline">
+            <mat-label>Send a message</mat-label>
+            <input
+              autofocus
+              matInput
+              name="message"
+              [(ngModel)]="message"
+              (keypress)="isTyping()"
+              (keydown)="sendMessage($event)"
+            />
+          </mat-form-field>
+          <button (click)="sendMessage()" mat-raised-button>
+            Send <mat-icon>send</mat-icon>
+          </button>
+        </div>
+        <!-- end chat-message -->
+      </div>
+      <!-- end chat -->
+    </div>
+    <!-- end container -->
+  </div>
+</div>

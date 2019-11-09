@@ -1,0 +1,74 @@
+// mat-card {
+//   padding: 5px;
+// }
+
+.side-card {
+  padding: 5px 0 !important;
+  padding-bottom: 0 !important;
+  margin-bottom: 20px;
+}
+
+.side-card .container {
+  padding: 5px 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.list-item {
+  cursor: pointer;
+  outline: none !important;
+}
+
+.list-item span {
+  padding: 0;
+}
+
+.col-2 {
+  margin-top: 3px;
+}
+
+.status {
+  margin-bottom: 20px;
+  padding: 0 12px;
+}
+
+.status .title {
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+@media (max-width: 1200px) {
+  .status .title {
+    font-weight: normal;
+    font-size: 10px;
+  }
+  .status .col-4 {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .status .title {
+    font-weight: bold;
+  }
+  .status .col-4 {
+    font-size: 12px;
+  }
+}
+
+.status .col-4 {
+  text-align: center;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+a {
+  color: black;
+}
+
+.active {
+  font-weight: bold;
+  color: rgb(0, 184, 216) !important;
+  background-color: black;
+  border-radius: 5px;
+}

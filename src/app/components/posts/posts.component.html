@@ -1,0 +1,51 @@
+<div class="posts-tabs" *ngIf="posts?.length > 0">
+  <mat-card class="post-card" *ngFor="let post of posts; trackBy: trackByFn">
+    <mat-card-header>
+      <div
+        mat-card-avatar
+        class="avatar"
+        [ngStyle]="{
+          'background-image':
+            'url(' +
+            'https://res.cloudinary.com/my-chat-app/image/upload/v' +
+            post.user.image.version +
+            '/' +
+            post.user.image.id +
+            ')'
+        }"
+      ></div>
+
+      <mat-card-title>{{ post.username }}</mat-card-title>
+      <mat-card-subtitle>{{ post.created | date }}</mat-card-subtitle>
+    </mat-card-header>
+    <img
+      *ngIf="post?.image?.version && post?.image?.id"
+      mat-card-image
+      src="https://res.cloudinary.com/my-chat-app/image/upload/v{{
+        post?.image?.version
+      }}/{{ post?.image?.id }}"
+      alt="{{ post.user.username }} Post"
+    />
+    <mat-card-content class="post-content">
+      <p>
+        {{ post.post }}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button
+        mat-button
+        [ngClass]="checkUserLikes(post.likes) ? 'liked' : ''"
+        (click)="checkUserLikes(post.likes) ? onUnLike(post) : onLike(post)"
+      >
+        <mat-icon>thumb_up</mat-icon> Like {{ post.likes.length }}
+      </button>
+      <button
+        mat-button
+        [ngClass]="!checkUserComments(post.comments) ? '' : 'commented'"
+        (click)="onCommentDialogOpen(post)"
+      >
+        <mat-icon>question_answer</mat-icon> Comment {{ post.comments.length }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

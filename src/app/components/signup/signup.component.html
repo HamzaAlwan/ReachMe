@@ -1,0 +1,98 @@
+<div class="container-fluid register">
+  <form [formGroup]="signupForm" (ngSubmit)="signupUser()" novalidate>
+    <div class="row">
+      <mat-form-field class="col-md-6 col-12" appearance="legacy">
+        <mat-label>Full Name</mat-label>
+        <input
+          formControlName="fullname"
+          matInput
+          placeholder="Enter Your Full Name"
+          required
+        />
+        <mat-icon matSuffix>perm_identity</mat-icon>
+        <mat-error *ngIf="signupForm.controls['fullname'].invalid"
+          >Full Name is required</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field class="col-md-6 col-12" appearance="legacy">
+        <mat-label>User Name</mat-label>
+        <input
+          formControlName="username"
+          matInput
+          placeholder="Enter Your Username"
+          required
+        />
+        <mat-icon matSuffix>account_circle</mat-icon>
+        <mat-error *ngIf="signupForm.controls['username'].invalid"
+          >Username is required</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field class="col-md-6 col-12" appearance="legacy">
+        <input
+          formControlName="birthday"
+          class="date"
+          matInput
+          [matDatepicker]="birthday"
+          placeholder="Select Your Birthday"
+          (click)="birthday.open()"
+          required
+        />
+        <mat-icon class="date" matSuffix (click)="birthday.open()"
+          >child_care</mat-icon
+        >
+        <mat-datepicker #birthday></mat-datepicker>
+        <mat-error *ngIf="signupForm.controls['birthday'].invalid"
+          >Birthday is required</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field class="col-md-6 col-12">
+        <mat-select formControlName="sex" placeholder="Select Sex" required>
+          <mat-option
+            *ngFor="let type of ['Male', 'Female', 'Prefer not to say']"
+            [value]="type"
+          >
+            {{ type }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="signupForm.controls['sex'].invalid"
+          >Sex is required</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field class="col-md-6 col-12" appearance="legacy">
+        <mat-label>Email</mat-label>
+        <input
+          formControlName="email"
+          matInput
+          placeholder="Enter Email"
+          required
+        />
+        <mat-icon matSuffix>email</mat-icon>
+        <mat-error *ngIf="signupForm.controls['email'].invalid">{{
+          getEmailError()
+        }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-md-6 col-12" appearance="legacy">
+        <mat-label>Password</mat-label>
+        <input
+          formControlName="password"
+          type="password"
+          matInput
+          placeholder="Enter Password"
+          required
+        />
+        <mat-icon matSuffix>lock</mat-icon>
+        <mat-error *ngIf="signupForm.controls['password'].invalid"
+          >Password is required</mat-error
+        >
+      </mat-form-field>
+      <button
+        id="signupbtn"
+        [disabled]="signupForm.invalid"
+        class="btn btn-primary btn-block btn-md"
+      >
+        Sign Up
+      </button>
+    </div>
+  </form>
+</div>

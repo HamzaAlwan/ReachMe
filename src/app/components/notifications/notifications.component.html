@@ -1,0 +1,51 @@
+<span *ngIf="currentUser?.notifications?.length > 0">
+  <mat-card
+    class="noti-card mat-elevation-z4"
+    *ngFor="let noti of currentUser.notifications.slice().reverse()"
+  >
+    <button
+      matTooltip="Delete Notification"
+      class="close noti-remove"
+      (click)="removeNoti(noti)"
+    >
+      <mat-icon>delete_forever</mat-icon>
+    </button>
+    <button
+      [matTooltip]="!noti.read ? 'Mark as Read' : 'Read'"
+      class="close noti-icon"
+      (click)="!noti.read ? markRead(noti) : ''"
+    >
+      <mat-icon [ngStyle]="{ color: !noti.read ? 'orange' : 'green' }">{{
+        !noti.read ? "lens" : "panorama_fish_eye"
+      }}</mat-icon>
+    </button>
+
+    <mat-card-header>
+      <div
+        mat-card-avatar
+        class="avatar"
+        *ngIf="noti.followerId.image"
+        [ngStyle]="{
+          'background-image':
+            'url(' +
+            'https://res.cloudinary.com/my-chat-app/image/upload/v' +
+            noti.followerId?.image?.version +
+            '/' +
+            noti.followerId?.image?.id +
+            ')'
+        }"
+      ></div>
+      <mat-card-title
+        class="noti-title"
+        [ngStyle]="{ 'font-weight': !noti.read ? 'bold' : 'normal' }"
+        >{{ noti.message }}</mat-card-title
+      >
+      <mat-card-subtitle class="time">{{
+        timeFromNow(noti.created)
+      }}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+</span>
+<h3 *ngIf="currentUser?.notifications?.length === 0">
+  You have no notifications
+</h3>

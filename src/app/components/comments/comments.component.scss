@@ -1,0 +1,52 @@
+textarea {
+  height: 60px;
+  resize: none !important;
+}
+
+.avatar {
+  background-size: cover;
+}
+
+.noImage {
+  background-image: url('../../../assets/user.svg');
+}
+
+.actionbtn {
+  width: 95%;
+}
+
+.comments {
+  margin-bottom: 14px;
+}
+
+.post-card {
+  margin: 10px 0 25px 0;
+  padding: 40px 16px 20px 16px;
+}
+
+.postImg {
+  width: 50%;
+}
+
+.subtitle {
+  font-size: 11px;
+  text-align: left;
+  color: #6c757d;
+}
+
+.comment {
+  padding: 0 20px;
+  text-align: left;
+}
+
+.liked {
+  color: #3f51b5;
+}
+
+.commented {
+  color: #ff4081;
+}
+
+.postActions {
+  padding-top: 20px;
+}

@@ -1,0 +1,129 @@
+<mat-card>
+  <div class="container-fluid">
+    <div>
+      <h4 class="text-center">Your Profile</h4>
+    </div>
+    <form [formGroup]="profileForm" (ngSubmit)="updateProfile()" novalidate>
+      <div class="row">
+        <div class="col-12">
+          <div class="avatar-upload">
+            <file-pond
+              #myPond
+              [options]="pondOptions"
+              (onaddfile)="handleAddFile()"
+              (onremovefile)="handleRemoveFile()"
+            >
+            </file-pond>
+          </div>
+          <mat-form-field class="col-md-6 col-sm-12" appearance="outline">
+            <mat-label>Fullname</mat-label>
+            <input
+              matInput
+              placeholder="Enter your Fullname"
+              name="fullname"
+              formControlName="fullname"
+              required
+            />
+            <mat-error *ngIf="profileForm.controls['fullname'].invalid"
+              >Full Name is required</mat-error
+            >
+          </mat-form-field>
+
+          <mat-form-field class="col-md-6 col-sm-12" appearance="outline">
+            <mat-label>Username</mat-label>
+            <input
+              matInput
+              placeholder="Enter your Username"
+              name="username"
+              formControlName="username"
+              required
+            />
+            <mat-error *ngIf="profileForm.controls['username'].invalid"
+              >Username is required</mat-error
+            >
+          </mat-form-field>
+
+          <mat-form-field class="col-md-6 col-12" appearance="outline">
+            <input
+              formControlName="birthday"
+              class="date"
+              matInput
+              [matDatepicker]="birthday"
+              placeholder="Select Your Birthday"
+              (click)="birthday.open()"
+              required
+            />
+
+            <mat-datepicker #birthday></mat-datepicker>
+            <mat-error *ngIf="profileForm.controls['birthday'].invalid"
+              >Birthday is required</mat-error
+            >
+          </mat-form-field>
+
+          <mat-form-field class="col-md-6 col-12">
+            <mat-select formControlName="sex" placeholder="Select Sex" required>
+              <mat-option
+                *ngFor="let type of ['Male', 'Female', 'Prefer not to say']"
+                [value]="type"
+              >
+                {{ type }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="profileForm.controls['sex'].invalid"
+              >Sex is required</mat-error
+            >
+          </mat-form-field>
+
+          <mat-form-field class="col-md-6 col-sm-12" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              placeholder="Enter your email"
+              name="email"
+              formControlName="email"
+              required
+            />
+            <mat-error *ngIf="profileForm.controls['email'].invalid">{{
+              getEmailError()
+            }}</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-6 col-sm-12" appearance="outline">
+            <mat-label>Phone Number</mat-label>
+            <input
+              matInput
+              placeholder="Enter your phone number"
+              name="phone_number"
+              formControlName="phone_number"
+            />
+            <!-- <mat-error *ngIf="profileForm.controls['phone_number'].invalid">Please enter a valid phone number</mat-error> -->
+          </mat-form-field>
+
+          <div class="col-12">
+            <div class="row update_profile">
+              <span class="col-md-6 col-sm-12">
+                <button
+                  type="button"
+                  mat-raised-button
+                  color="accent"
+                  (click)="onUpdatePasswordOpen()"
+                >
+                  Update password
+                </button>
+              </span>
+              <span class="col-md-6 col-sm-12">
+                <button
+                  [disabled]="profileForm.invalid"
+                  mat-raised-button
+                  color="primary"
+                >
+                  Update Profile
+                </button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</mat-card>

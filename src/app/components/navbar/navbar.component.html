@@ -1,0 +1,256 @@
+<mat-sidenav-container class="mat-elevation-z4">
+  <mat-menu #menu="matMenu">
+    <a mat-menu-item [routerLink]="['/home']">
+      <mat-icon mat-list-icon>home</mat-icon>
+      <span mat-line>home</span>
+    </a>
+    <a mat-menu-item (click)="logout()">
+      <mat-icon mat-list-icon>exit_to_app</mat-icon>
+      <span mat-line>Logout</span>
+    </a>
+  </mat-menu>
+
+  <mat-toolbar color="primary">
+    <button matTooltip="Home" mat-button [routerLink]="['/home']">
+      <img class="logo" src="../../../assets/logo.png" />
+      &nbsp; Chat
+    </button>
+    <span class="fill-space"></span>
+    <span matTooltip="You" *ngIf="currentUser?.image"
+      ><img
+        matTooltip="{{ currentUser.username }}"
+        src="https://res.cloudinary.com/my-chat-app/image/upload/v{{
+          currentUser?.image?.version
+        }}/{{ currentUser?.image?.id }}"
+        class="rounded-circle img-fluid userImg"
+        [matMenuTriggerFor]="menu"
+      />
+      <span class="username">{{ currentUser.username }} </span>
+    </span>
+    <div class="navbtns">
+      <!-- Notification Start -->
+      <button
+        matTooltip="Notifications"
+        mat-button
+        [matMenuTriggerFor]="notiMenu"
+      >
+        <mat-icon
+          [matBadge]="notificationsCount"
+          matBadgePosition="before"
+          [matBadgeHidden]="notificationsCount < 1"
+          matBadgeColor="accent"
+          >notifications</mat-icon
+        >
+        <mat-menu id="noti-menu" #notiMenu="matMenu">
+          <button
+            class="markAllRead"
+            mat-raised-button
+            color="warn"
+            (click)="markAllNoti()"
+          >
+            Mark all as read
+          </button>
+          <span
+            class="notifications"
+            *ngIf="currentUser?.notifications?.length > 0"
+          >
+            <mat-card
+              class="noti-card mat-elevation-z4"
+              *ngFor="let noti of currentUser.notifications.slice().reverse()"
+            >
+              <button
+                matTooltip="Delete Notification"
+                class="close noti-remove"
+                (click)="removeNoti(noti)"
+              >
+                <mat-icon>delete_forever</mat-icon>
+              </button>
+              <button
+                [matTooltip]="!noti.read ? 'Mark as Read' : 'Read'"
+                class="close noti-icon"
+                (click)="!noti.read ? markNotiRead(noti) : ''"
+              >
+                <mat-icon
+                  [ngStyle]="{ color: !noti.read ? 'blue' : 'green' }"
+                  >{{ !noti.read ? "lens" : "panorama_fish_eye" }}</mat-icon
+                >
+              </button>
+
+              <mat-card-header *ngIf="noti.followerId">
+                <div
+                  mat-card-avatar
+                  class="avatar"
+                  [ngStyle]="{
+                    'background-image':
+                      'url(' +
+                      'https://res.cloudinary.com/my-chat-app/image/upload/v' +
+                      noti.followerId?.image?.version +
+                      '/' +
+                      noti.followerId?.image?.id +
+                      ')'
+                  }"
+                ></div>
+                <mat-card-title
+                  class="noti-title"
+                  [ngStyle]="{ 'font-weight': !noti.read ? 'bold' : 'normal' }"
+                  >{{ noti.message }}</mat-card-title
+                >
+                <mat-card-subtitle class="time">{{
+                  timeFromNow(noti.created)
+                }}</mat-card-subtitle>
+              </mat-card-header>
+            </mat-card>
+          </span>
+          <p
+            *ngIf="currentUser?.notifications?.length === 0"
+            style="padding: 5px 10px"
+          >
+            You have no notifications
+          </p>
+        </mat-menu>
+      </button>
+      <!-- Notification End -->
+
+      <!-- Messages Start -->
+      <button matTooltip="Messages" mat-button [matMenuTriggerFor]="msgMenu">
+        <mat-icon
+          [matBadge]="msgCount"
+          matBadgePosition="before"
+          [matBadgeHidden]="msgCount < 1"
+          matBadgeColor="accent"
+          >message</mat-icon
+        >
+        <mat-menu id="msg-menu" #msgMenu="matMenu">
+          <button
+            class="markAllRead"
+            (click)="markAllMessages()"
+            mat-raised-button
+            color="warn"
+          >
+            Mark all as read
+          </button>
+          <span class="notifications" *ngIf="currentUser?.chatList?.length > 0">
+            <mat-card
+              class="noti-card mat-elevation-z4"
+              *ngFor="let chat of currentUser.chatList"
+              style="cursor: pointer"
+              (click)="goToChatPage(chat.receiverId.username)"
+            >
+              <mat-icon
+                class="close noti-icon"
+                *ngIf="chat?.messageId.message"
+                [matTooltip]="
+                  !chat.messageId.message[chat.messageId.message.length - 1]
+                    .isRead &&
+                  chat.receiverId.username !==
+                    chat.messageId.message[chat.messageId.message.length - 1]
+                      .receiverName
+                    ? 'Not Read'
+                    : 'Read'
+                "
+                [ngStyle]="{
+                  color:
+                    !chat.messageId.message[chat.messageId.message.length - 1]
+                      .isRead &&
+                    chat.receiverId.username !==
+                      chat.messageId.message[chat.messageId.message.length - 1]
+                        .receiverName
+                      ? 'blue'
+                      : 'green'
+                }"
+                >{{
+                  !chat.messageId.message[chat.messageId.message.length - 1]
+                    .isRead &&
+                  chat.receiverId.username !==
+                    chat.messageId.message[chat.messageId.message.length - 1]
+                      .receiverName
+                    ? "lens"
+                    : "panorama_fish_eye"
+                }}</mat-icon
+              >
+
+              <mat-card-header
+                [ngStyle]="{
+                  'font-weight':
+                    !chat.messageId.message[chat.messageId.message.length - 1]
+                      .isRead &&
+                    chat.receiverId.username !==
+                      chat.messageId.message[chat.messageId.message.length - 1]
+                        .receiverName
+                      ? 'bold'
+                      : 'normal'
+                }"
+                *ngIf="chat?.messageId?.message?.length > 0"
+              >
+                <div
+                  mat-card-avatar
+                  class="avatar"
+                  [ngStyle]="{
+                    'background-image':
+                      'url(' +
+                      'https://res.cloudinary.com/my-chat-app/image/upload/v' +
+                      chat.receiverId?.image?.version +
+                      '/' +
+                      chat.receiverId?.image?.id +
+                      ')'
+                  }"
+                ></div>
+                <mat-card-title
+                  [ngStyle]="{
+                    'font-weight':
+                      !chat.messageId.message[chat.messageId.message.length - 1]
+                        .isRead &&
+                      chat.receiverId.username !==
+                        chat.messageId.message[
+                          chat.messageId.message.length - 1
+                        ].receiverName
+                        ? 'bold'
+                        : 'normal'
+                  }"
+                  class="noti-title"
+                  >{{ chat.receiverId.username }}</mat-card-title
+                >
+                <mat-card-subtitle>
+                  <span>
+                    {{
+                      chat.messageId.message[chat.messageId.message.length - 1]
+                        .body
+                    }}
+                  </span>
+                  <br />
+                  <span class="time">
+                    {{
+                      timeFromNow(
+                        chat.messageId.message[
+                          chat.messageId.message.length - 1
+                        ].createdAt
+                      )
+                    }}</span
+                  ></mat-card-subtitle
+                >
+              </mat-card-header>
+            </mat-card>
+          </span>
+          <p
+            *ngIf="currentUser?.chatList?.length === 0"
+            style="padding: 5px 10px"
+          >
+            You have no messages
+          </p>
+        </mat-menu>
+      </button>
+      <!-- Messages End -->
+
+      <button matTooltip="Logout" mat-button (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>&nbsp;
+      </button>
+    </div>
+
+    <!-- Display in mobile -->
+    <div class="navbtns-icons">
+      <button matTooltip="Logout" mat-icon-button (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+      </button>
+    </div>
+  </mat-toolbar>
+</mat-sidenav-container>

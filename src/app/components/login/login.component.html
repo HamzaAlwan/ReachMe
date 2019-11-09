@@ -1,0 +1,40 @@
+<div class="container-fluid register">
+  <form [formGroup]="loginForm" (ngSubmit)="loginUser()" novalidate>
+    <div class="row">
+      <mat-form-field class="col-md-6 col-12" appearance="legacy">
+        <mat-label>Email</mat-label>
+        <input
+          formControlName="email"
+          matInput
+          placeholder="Enter Email"
+          required
+        />
+        <mat-icon matSuffix>email</mat-icon>
+        <mat-error *ngIf="loginForm.controls['email'].invalid">{{
+          getEmailError()
+        }}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="col-md-6 col-12" appearance="legacy">
+        <mat-label>Password</mat-label>
+        <input
+          formControlName="password"
+          type="password"
+          matInput
+          placeholder="Enter Password"
+          required
+        />
+        <mat-icon matSuffix>lock</mat-icon>
+        <mat-error *ngIf="loginForm.controls['password'].invalid"
+          >Password is required</mat-error
+        >
+      </mat-form-field>
+      <button
+        id="loginbtn"
+        [disabled]="loginForm.invalid"
+        class="btn btn-primary btn-block btn-md"
+      >
+        Login
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,25 @@
+<div id="auth-tabs" class="container-fluid text-center registeration">
+  <mat-tab-group
+    dynamicHeight
+    mat-align-tabs="center"
+    [backgroundColor]="'primary'"
+    [color]="'accent'"
+  >
+    <mat-tab label="Login">
+      <div class="card login mat-elevation-z4">
+        <h4>Welcome Back, Login</h4>
+        <div class="form login">
+          <app-login></app-login>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Sign up">
+      <div class="card sign mat-elevation-z4">
+        <h4>Sign Up</h4>
+        <div class="form signup">
+          <app-signup></app-signup>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

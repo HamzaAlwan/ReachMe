@@ -1,0 +1,27 @@
+.avatar {
+  background-size: cover;
+}
+
+.noImage {
+  background-image: url("../../../assets/user.svg");
+}
+
+.posts-tabs {
+  padding: 0 10px !important;
+}
+
+.post-card {
+  margin-bottom: 15px;
+}
+
+.post-content {
+  padding: 0 15px;
+}
+
+.liked {
+  color: #3f51b5;
+}
+
+.commented {
+  color: #ff4081;
+}

@@ -1,0 +1,14 @@
+<app-navbar id="navbar" *ngIf="!auth_route"></app-navbar>
+
+<div class="container" *ngIf="!auth_route">
+  <div class="row">
+    <div class="col-lg-3 col-md-4 col-sm-12">
+      <app-side></app-side>
+    </div>
+    <div class="col-lg-9 col-md-8 col-sm-12">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

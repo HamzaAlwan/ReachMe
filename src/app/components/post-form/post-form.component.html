@@ -1,0 +1,52 @@
+<div class="container-fluid">
+  <div>
+    <button class="close" (click)="close()">
+      <mat-icon>clear</mat-icon>
+    </button>
+    <h4 class="text-center">Upload Post</h4>
+  </div>
+  <div class="row">
+    <form
+      class="col-12"
+      [formGroup]="postForm"
+      (ngSubmit)="createPost()"
+      novalidate
+    >
+      <mat-form-field class="col-12" appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea
+          matInput
+          formControlName="post"
+          placeholder="Add Description"
+        ></textarea>
+        <mat-error>Required filed</mat-error>
+      </mat-form-field>
+      <div class="col-12">
+        <file-pond
+          #myPond
+          (onaddfile)="handleAddFile()"
+          (onremovefile)="handleRemoveFile()"
+        >
+        </file-pond>
+
+        <mat-card-actions>
+          <button
+            mat-raised-button
+            (click)="close()"
+            type="button"
+            class="btn-danger btn-lg float-left"
+          >
+            Cancel
+          </button>
+          <button
+            [disabled]="postForm.invalid"
+            mat-raised-button
+            class="btn-primary btn-lg float-right"
+          >
+            Create Post
+          </button>
+        </mat-card-actions>
+      </div>
+    </form>
+  </div>
+</div>

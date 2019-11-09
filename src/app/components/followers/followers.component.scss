@@ -1,0 +1,19 @@
+div.usercard {
+  display: inline-block !important;
+  margin-bottom: 14px;
+  padding: 0 8px !important;
+  text-align: center;
+}
+
+.usercard .mat-card-actions .mat-button {
+  margin: 0;
+}
+
+.usercard .flag {
+  width: 60px;
+  height: 39.7px;
+}
+
+.followed {
+  color: red !important;
+}
