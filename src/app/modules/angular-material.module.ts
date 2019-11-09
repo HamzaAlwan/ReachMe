@@ -31,7 +31,8 @@ import "hammerjs";
     M.MatDialogModule,
     M.MatExpansionModule,
     M.MatBadgeModule,
-    M.MatCheckboxModule
+    M.MatCheckboxModule,
+    M.MatProgressSpinnerModule
   ],
   exports: [
     BrowserAnimationsModule,
@@ -56,7 +57,8 @@ import "hammerjs";
     M.MatDialogModule,
     M.MatExpansionModule,
     M.MatBadgeModule,
-    M.MatCheckboxModule
+    M.MatCheckboxModule,
+    M.MatProgressSpinnerModule
   ]
 })
 export class AngularMaterialModule {}
