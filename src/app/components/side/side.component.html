@@ -9,13 +9,13 @@
         ><p class="title">
           <a [routerLink]="['/people/following']">Following</a>
         </p>
-        {{ currentUser?.following ? currentUser.following.length : 0 }}</span
+        {{ currentUser?.following ? currentUser?.following?.length : 0 }}</span
       >
       <span class="col-4"
         ><p class="title">
           <a [routerLink]="['/people/followers']">Followers</a>
         </p>
-        {{ currentUser?.followers ? currentUser.followers.length : 0 }}</span
+        {{ currentUser?.followers ? currentUser?.followers?.length : 0 }}</span
       >
     </div>
     <mat-list-item

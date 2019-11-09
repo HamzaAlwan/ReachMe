@@ -39,7 +39,7 @@
       <mat-card-actions>
         <!-- If the user is followed -->
         <button
-          *ngIf="checkUserFollowing(user.followers, currentUser?._id)"
+          *ngIf="checkUserFollowing(user?.followers, currentUser?._id)"
           mat-raised-button
           class="followed"
           (click)="unFollow(user)"
@@ -49,7 +49,7 @@
 
         <!-- If the user is not followed -->
         <button
-          *ngIf="!checkUserFollowing(user.followers, currentUser?._id)"
+          *ngIf="!checkUserFollowing(user?.followers, currentUser?._id)"
           mat-raised-button
           (click)="onFollow(user)"
         >
