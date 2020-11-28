@@ -1,7 +1,7 @@
 {
-  "name": "mychatapp-project",
+  "name": "reach-me",
   "version": "1.0.0",
-  "description": "Chat App",
+  "description": "ReachMe",
   "main": "index.js",
   "scripts": {
     "start": "SET NODE_ENV=dev && nodemon server/index.js",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HamzaAlwan/ChatApp-Full.git"
+    "url": "git+https://github.com/HamzaAlwan/ReachMe.git"
   },
   "author": "Hamza",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/HamzaAlwan/ChatApp-Full/issues"
+    "url": "https://github.com/HamzaAlwan/ReachMe/issues"
   },
-  "homepage": "https://github.com/HamzaAlwan/ChatApp-Full#readme",
+  "homepage": "https://github.com/HamzaAlwan/ReachMe#readme",
   "dependencies": {
     "@hapi/joi": "^16.1.7",
     "bcryptjs": "^2.4.3",
